@@ -2,6 +2,7 @@
 const https = require('https');
 const express = require('express');
 const bodyParser = require('body-parser');
+const date = require(__dirname+'/modules/date.js');
 
 const app = express();
 const items = ['Buy a hat', 'Sell the cat'];
@@ -14,11 +15,13 @@ const port = 8000;
 const unit = "metric";
 
 app.get('/', (req, res) => {
-    const today = new Date();
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-    const formattedDate = today.toLocaleDateString('en-US',options);
+    const formattedDate = date.getDate();
     res.render('index', { date: formattedDate, items: items });
 });
+
+app.get('/about', (req,res)=> {
+    res.render('about');
+})
 
 app.post('/', (req, res) => {
     const newTodo = req.body.newTodo;

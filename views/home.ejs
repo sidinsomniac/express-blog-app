@@ -3,8 +3,17 @@
 <p><%=content%></p>
 
 <% posts.forEach(post => { %>
-<h1> <%= post.title %> </h1>
-<p> <%= post.title %> </p>
+    <a href="/posts/<%= post.title %>">
+        <h1> <%= post.title %> </h1>
+    </a>
+<p> 
+    <%= post.body.substring(0,50) %>
+    <% if (post.body.length > 50) { %>
+        <a href="/posts/<%= post.title %>">
+            ... Read more
+        </a>
+    <% } %>
+</p>
 <% }); %>
 
 <%-include("partials/footer");-%>

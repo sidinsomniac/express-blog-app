@@ -15,6 +15,26 @@
     color: #1abc9c !important;
 }
 
+.post {
+    position: relative;
+}
+
+.post button[type="submit"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 3rem;
+    display: none;
+    color: lightgray;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+}
+
+.post:hover button[type="submit"] {
+    display: block;
+}
+
 .footer-padding {
 	padding-bottom: 60px;
 }

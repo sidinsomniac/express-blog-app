@@ -44,8 +44,6 @@ const chimiChangas = new Post({
 
 const defaultPosts = [mondayBlues, chimiChangas];
 
-
-
 app.get('/', (req, res) => {
   // FETCH POSTS
   Post.find({}, (err, data) => {
@@ -70,18 +68,22 @@ app.get('/', (req, res) => {
   });
 });
 
+// ABOUT ROUTE
 app.get('/about', (req, res) => {
   res.render('about', { content: aboutContent });
 });
 
+// CONTACT ROUTE
 app.get('/contact', (req, res) => {
   res.render('contact', { content: contactContent });
 });
 
+// COMPOSE ROUTE
 app.get('/compose', (req, res) => {
   res.render('compose');
 });
 
+// INDIVIDUAL POST
 app.get('/posts/:topic', (req, res) => {
   let requestedPost = _.lowerCase(req.params.topic);
   posts.forEach(blog => {
@@ -92,14 +94,35 @@ app.get('/posts/:topic', (req, res) => {
   });
 });
 
+// POST ROUTE FOR POSTING THE POSTS
 app.post('/compose', (req, res) => {
   const post = {
     title: req.body.messageTitle,
     body: req.body.messagePost
   }
-  posts.push(post);
+  const newPost = new Post(post);
+  newPost.save();
   res.redirect('/');
 });
+
+// DELETE ROUTE
+app.post('/delete', (req, res) => {
+  const postID = req.body.deletePost;
+  if (postID) {
+    Post.findByIdAndRemove(postID, err => {
+      if (err) {
+        console.log("There was an error deleting the post with id: ", postID);
+      } else {
+        console.log("Successfully deleted the post with id: ", postID);
+        res.redirect('/');
+      }
+    });
+  } else {
+    console.log("Post failed to delete");
+  }
+});
+
+// LISTEN ON PORT
 app.listen(process.env.PORT || port, function () {
   console.log("Server started on port ", port);
 });

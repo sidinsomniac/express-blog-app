@@ -3,17 +3,22 @@
 <p><%=content%></p>
 
 <% posts.forEach(post => { %>
+<div class="post">
     <a href="/posts/<%= post.title %>">
         <h1> <%= post.title %> </h1>
     </a>
-<p> 
-    <%= post.body.substring(0,50) %>
-    <% if (post.body.length > 50) { %>
+    <p>
+        <%= post.body.substring(0,50) %>
+        <% if (post.body.length > 50) { %>
         <a href="/posts/<%= post.title %>">
             ... Read more
         </a>
-    <% } %>
-</p>
+        <% } %>
+    </p>
+    <form action="/delete" method="POST">
+        <button type="submit" name="deletePost" value="<%= post._id %>">&#10006;</button>
+    </form>
+</div>
 <% }); %>
 
 <%-include("partials/footer");-%>

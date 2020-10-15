@@ -17,7 +17,7 @@ app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
-mongoose.connect('mongodb://localhost:27017/blogpost', { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://sid-admin:qwerty1234@cluster0.msbpa.gcp.mongodb.net/blogpost', { useNewUrlParser: true, useUnifiedTopology: true });
 
 const postSchema = new mongoose.Schema({
   title: {
@@ -86,10 +86,16 @@ app.get('/compose', (req, res) => {
 // INDIVIDUAL POST
 app.get('/posts/:topic', (req, res) => {
   let requestedPost = _.lowerCase(req.params.topic);
-  posts.forEach(blog => {
-    let postTitle = _.lowerCase(blog.title);
-    if (postTitle === requestedPost) {
-      res.render('post', { title: blog.title, body: blog.body });
+  Post.find({}, (err, data) => {
+    if (err) {
+      console.log("There was an error: ", err);
+    } else {
+      data.forEach(blog => {
+        let postTitle = _.lowerCase(blog.title);
+        if (postTitle === requestedPost) {
+          res.render('post', { title: blog.title, body: blog.body });
+        }
+      });
     }
   });
 });

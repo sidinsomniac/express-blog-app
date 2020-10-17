@@ -71,7 +71,7 @@ app.get('/', (req, res) => {
         res.redirect('/');
       } else {
         console.log("Fetched the posts successfully: ", data);
-        res.render('home', { content: homeStartingContent, posts: data, currentWeather:currentWeather });
+        res.render('home', { content: homeStartingContent, posts: data, currentWeather: currentWeather });
       }
     }
   });
@@ -79,17 +79,17 @@ app.get('/', (req, res) => {
 
 // ABOUT ROUTE
 app.get('/about', (req, res) => {
-  res.render('about', { content: aboutContent });
+  res.render('about', { content: aboutContent, currentWeather: currentWeather });
 });
 
 // CONTACT ROUTE
 app.get('/contact', (req, res) => {
-  res.render('contact', { content: contactContent });
+  res.render('contact', { content: contactContent, currentWeather: currentWeather });
 });
 
 // COMPOSE ROUTE
 app.get('/compose', (req, res) => {
-  res.render('compose');
+  res.render('compose', { currentWeather: currentWeather });
 });
 
 // INDIVIDUAL POST
@@ -100,7 +100,7 @@ app.get('/posts/:postId', (req, res) => {
       console.log("There was an error: ", err);
     } else {
       if (data[0]._id == requestedPost) {
-        res.render('post', { title: data[0].title, body: data[0].body });
+        res.render('post', { title: data[0].title, body: data[0].body, currentWeather: currentWeather });
       }
     }
   });

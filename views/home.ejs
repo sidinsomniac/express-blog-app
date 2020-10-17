@@ -1,16 +1,15 @@
 <%-include("partials/header");-%>
 <h1>Home</h1>
 <p><%=content%></p>
-
 <% posts.forEach(post => { %>
 <div class="post">
-    <a href="/posts/<%= post.title %>">
+    <a href="/posts/<%= post._id %>">
         <h1> <%= post.title %> </h1>
     </a>
     <p>
         <%= post.body.substring(0,50) %>
         <% if (post.body.length > 50) { %>
-        <a href="/posts/<%= post.title %>">
+        <a href="/posts/<%= post._id %>">
             ... Read more
         </a>
         <% } %>

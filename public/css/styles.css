@@ -15,6 +15,34 @@
     color: #1abc9c !important;
 }
 
+.weather {
+    background: rgb(245, 244, 234);
+    width: 100%;
+}
+
+.weather input[type="text"] {
+    border: none;
+    margin: 1rem auto;
+    padding: 1rem;
+}
+
+.weather input[type="text"]:focus {
+    outline: none;
+}
+
+.weather input[type="submit"] {
+    border: none;
+    padding: 1rem;
+    background: white;
+    margin-left: -5px;
+}
+
+.weather input::placeholder {
+    color: #ddd;
+    font-style: italic;
+    margin-left: 1rem;
+}
+
 .post {
     position: relative;
 }

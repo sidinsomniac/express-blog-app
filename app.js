@@ -32,6 +32,7 @@ const postSchema = new mongoose.Schema({
 
 const Post = mongoose.model("Post", postSchema);
 
+// DEFAULT POSTS
 const mondayBlues = new Post({
   title: "Monday is here!",
   body: "This is heartbreaking, but we all gotta face that Monday blue atleast once a week! :)"
@@ -41,6 +42,13 @@ const chimiChangas = new Post({
   title: "Deadpool approves this post",
   body: "Maximum effort! Minimum audience reaction! Smooth!"
 });
+
+// WEATHER RELATED VARIABLES
+const unit = "metric";
+const apiKey = "9e7092e0dd7af0b3b8a05e1839333fd1";
+const endPoint = "https://api.openweathermap.org/data/2.5/weather";
+let queryParams;
+let weatherUrl;
 
 const defaultPosts = [mondayBlues, chimiChangas];
 
@@ -84,18 +92,15 @@ app.get('/compose', (req, res) => {
 });
 
 // INDIVIDUAL POST
-app.get('/posts/:topic', (req, res) => {
-  let requestedPost = _.lowerCase(req.params.topic);
-  Post.find({}, (err, data) => {
+app.get('/posts/:postId', (req, res) => {
+  let requestedPost = req.params.postId;
+  Post.find({ "_id": requestedPost }, (err, data) => {
     if (err) {
       console.log("There was an error: ", err);
     } else {
-      data.forEach(blog => {
-        let postTitle = _.lowerCase(blog.title);
-        if (postTitle === requestedPost) {
-          res.render('post', { title: blog.title, body: blog.body });
-        }
-      });
+      if (data[0]._id == requestedPost) {
+        res.render('post', { title: data[0].title, body: data[0].body });
+      }
     }
   });
 });

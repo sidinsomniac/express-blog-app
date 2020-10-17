@@ -43,6 +43,11 @@
     margin-left: 1rem;
 }
 
+.weatherReport {
+    margin-left: 1rem;
+    color: gray;
+}
+
 .post {
     position: relative;
 }

@@ -1,3 +1,4 @@
+const date = require(__dirname+'/modules/date');
 const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const express = require("express");
@@ -54,6 +55,7 @@ let currentWeather = "";
 const defaultPosts = [mondayBlues, chimiChangas];
 
 app.get('/', (req, res) => {
+  const formattedDate = date.getDate();
   // FETCH POSTS
   Post.find({}, (err, data) => {
     if (err) {
@@ -71,7 +73,7 @@ app.get('/', (req, res) => {
         res.redirect('/');
       } else {
         console.log("Fetched the posts successfully: ", data);
-        res.render('home', { content: homeStartingContent, posts: data, currentWeather: currentWeather });
+        res.render('home', { content: homeStartingContent, posts: data, currentWeather: currentWeather, formattedDate: formattedDate });
       }
     }
   });

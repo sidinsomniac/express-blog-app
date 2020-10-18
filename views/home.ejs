@@ -1,5 +1,8 @@
 <%-include("partials/header");-%>
-<h1>Home</h1>
+<div style="margin-top: 1rem;" class="text-muted">
+    <%= formattedDate %>
+</div>
+<h1 style="margin-top: 1rem;">Home</h1>
 <p><%=content%></p>
 <% posts.forEach(post => { %>
 <div class="post">
